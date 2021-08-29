@@ -22,7 +22,7 @@ type
     { Private declarations }
     procedure MyQryError(ASender, AInitiator: TObject; var AException: Exception);
     function Get_PrefixQuery: string;
-    function IsPrefix_Query(aTableNames: TStrings): Boolean;
+    function IsPrefix_Query(aTableFieldsNames: TStrings): Boolean;
   public
     fQry: TFDQuery;
     constructor Create(aFdConnection: TFDConnection; aTableName: string);
@@ -164,11 +164,14 @@ begin
         try
           Open;
         except on E: EFDDBEngineException do begin
-          aTable_FieldsNames.Free; // Best Place to free the TStringList ..if there was an Exception !!!
-          raise Exception.Create('Error: ' + E.Message);
+            aTable_FieldsNames.Free; // Best Place to free the TStringList ..if there was an Exception !!!
+            raise Exception.Create('Error: ' + E.Message);
+          end;
         end;
-        end;
-      end else raise Exception.Create('Wrong ' + fPrefix + ': Please Specify a Correct Prefix for your Query !!');
+      end else begin
+        aTable_FieldsNames.Free; // Best Place to free the TStringList ..if there was an Exception !!!
+        raise Exception.Create('Wrong ' + fPrefix + ': Please Specify a Correct Prefix for your Query !!');
+      end;
       aTable_FieldsNames.Free; // Best Place to free the TStringList ..
     finally
       Connection.Commit;
@@ -177,16 +180,16 @@ begin
   Result := fTempFdQuery.Fields[0].AsString;
 end;
 
-function TQuery_API.IsPrefix_Query(aTableNames: TStrings): Boolean;
+function TQuery_API.IsPrefix_Query(aTableFieldsNames: TStrings): Boolean;
 var
   I: Byte;
   Correct: Boolean;
 begin
   Correct := False;
-  for I := 0 to aTableNames.Count -1 do begin
-    if StartsText(fPrefix, aTableNames[I]) then begin // , [coIgnoreSymbols,coIgnoreCase]
+  for I := 0 to aTableFieldsNames.Count -1 do begin
+    if StartsText(fPrefix, aTableFieldsNames[I]) then begin // , [coIgnoreSymbols,coIgnoreCase]
       Correct := True;
-      GetSubStr(aTableNames[I], '', '_', fPrefix);
+      GetSubStr(aTableFieldsNames[I], '', '_', fPrefix);
       Break;
     end else Correct := False;
   end;
@@ -216,13 +219,5 @@ begin
   end;
 end;
 
-//function TQuery_API.TrimedQuery(aSql: string): string;
-//var
-//  Match: TMatch;
-//begin
-//  Match := TRegEx.Match(aSql, 'SELECT(.*?)FROM '+ fTableName, [roIgnoreCase, roMultiLine]);
-//  if Match.Success then
-//    Result := StringReplace(aSql.Trim, Match.Value.Trim, '', [rfReplaceAll, rfIgnoreCase]).Trim;
-//end;
 
 end.

@@ -13,6 +13,7 @@ object FrmMain: TFrmMain
   Font.Quality = fqClearTypeNatural
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnResize = FormResize
   DesignSize = (
     564
     363)
@@ -30,6 +31,7 @@ object FrmMain: TFrmMain
     Top = 8
     Width = 104
     Height = 21
+    Anchors = [akTop, akRight]
     Caption = 'Param USER: '
   end
   object Lbl_P2: TLabel
@@ -37,6 +39,7 @@ object FrmMain: TFrmMain
     Top = 85
     Width = 151
     Height = 21
+    Anchors = [akTop, akRight]
     Caption = 'Param PASSWORD: '
   end
   object DBGrid_TEST: TDBGrid
@@ -45,14 +48,24 @@ object FrmMain: TFrmMain
     Width = 548
     Height = 141
     Anchors = [akLeft, akRight, akBottom]
+    Color = 13487565
     DataSource = ds_TEST
+    DrawingStyle = gdsGradient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Font.Quality = fqClearTypeNatural
+    ParentFont = False
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
-    TitleFont.Height = -17
+    TitleFont.Height = -15
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     TitleFont.Quality = fqClearTypeNatural
+    StyleElements = []
   end
   object Btn_RUN: TButton
     Left = 443
@@ -85,6 +98,7 @@ object FrmMain: TFrmMain
     Width = 189
     Height = 29
     Alignment = taCenter
+    Anchors = [akTop, akRight]
     TabOrder = 3
     Text = 'User'
   end
@@ -94,6 +108,7 @@ object FrmMain: TFrmMain
     Width = 189
     Height = 29
     Alignment = taCenter
+    Anchors = [akTop, akRight]
     TabOrder = 4
     Text = 'User'
   end

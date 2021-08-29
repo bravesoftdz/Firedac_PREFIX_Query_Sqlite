@@ -115,6 +115,7 @@
         <DCCReference Include="Query_API.pas"/>
         <DCCReference Include="UPARAMS.pas"/>
         <DCCReference Include="UFunctions.pas"/>
+        <DCCReference Include="UUtils.pas"/>
         <None Include="BasicData\BasicData.s3db"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

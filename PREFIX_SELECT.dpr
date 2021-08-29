@@ -6,7 +6,8 @@ uses
   Udm in 'Udm.pas' {dm: TDataModule},
   Query_API in 'Query_API.pas',
   UPARAMS in 'UPARAMS.pas',
-  UFunctions in 'UFunctions.pas';
+  UFunctions in 'UFunctions.pas',
+  UUtils in 'UUtils.pas';
 
 {$R *.res}
 
